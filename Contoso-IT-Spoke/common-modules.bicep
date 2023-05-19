@@ -1,4 +1,4 @@
-param location string
+param location string = resourceGroup().location
 
 module kv '../Contoso-IT-Spoke/common/kv.bicep' = {
   name: 'kv'

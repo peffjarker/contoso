@@ -1,6 +1,6 @@
 resource hubDevPeer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = {
   name: 'it-hub-eus2-it-dev-eus2-vnet-peer'
-  parent: ithubvnet
+  parent: itdevvnet
   properties: {
     peeringState: 'Connected'
     peeringSyncLevel: 'FullyInSync'
@@ -10,7 +10,7 @@ resource hubDevPeer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@20
       ]
     }
     remoteVirtualNetwork: {
-      id: itdevvnet.id
+      id: ithubvnet.id
     }
     remoteVirtualNetworkAddressSpace: {
       addressPrefixes: [
@@ -22,9 +22,9 @@ resource hubDevPeer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@20
 
 resource itdevvnet 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
   name: 'it-dev-eus2-vnet'
-  scope: resourceGroup('it-dev-eus2-net-rg')
 }
 
 resource ithubvnet 'Microsoft.Network/virtualNetworks@2022-09-01' existing = {
   name: 'it-hub-eus2-vnet'
+  scope: resourceGroup('it-hub-eus2-net-rg')
 }

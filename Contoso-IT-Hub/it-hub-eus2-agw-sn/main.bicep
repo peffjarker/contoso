@@ -1,9 +1,16 @@
 param location string = 'eastus2'
 param virtualNetworkNameResource string = 'it-hub-eus2-vnet'
 param subnetName string = 'it-hub-eus2-agw-sn'
-param accountId string
-param issuerPassword string
-param organizationId string
+param accountId string = ''
+param kvSecretId string
+param certName string
+
+@secure()
+param issuerPassword string = ''
+param organizationId string = ''
+param identityId string
+
+var agwId = resourceId('Microsoft.Network/applicationGateway', 'it-hub-eus2-agw')
 
 @description('Name of the WebApp')
 param siteName string = 'lg-dev-eus2-lgd-wa'
@@ -37,7 +44,21 @@ resource publicIPAddressName 'Microsoft.Network/publicIPAddresses@2022-07-01' = 
 resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' = {
   name: 'it-hub-eus2-agw'
   location: location
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${identityId}': {}
+    }
+  }
   properties: {
+    sslCertificates: [
+      {
+        name: certName
+        properties: {
+          keyVaultSecretId: kvSecretId
+        }
+      }
+    ]
     sku: {
       name: 'Standard_v2'
       tier: 'Standard_v2'
@@ -67,7 +88,7 @@ resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' =
       {
         name: 'appGatewayFrontendPort'
         properties: {
-          port: 80
+          port: 443
         }
       }
     ]
@@ -111,7 +132,7 @@ resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' =
           }
           protocol: 'Https'
           sslCertificate: {
-            id: 
+            id: resourceId('Microsoft.Network/applicationGateways/sslCertificates/', applicationGatewayNameResource, certName)
           }
         }
       }
@@ -162,8 +183,4 @@ resource AppService 'Microsoft.Web/sites@2022-03-01' existing = {
 
 resource HubVNet 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
   name: 'it-hub-eus2-vnet'
-}
-
-resource kv 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
-  name: 'it-hub-eus2-kv'
 }

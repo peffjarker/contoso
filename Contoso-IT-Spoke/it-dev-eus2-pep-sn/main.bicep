@@ -1,7 +1,7 @@
 param location string
 
 resource itdeveus2lgdsapip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
-  name: 'it-dev-eus2-pep-sa'
+  name: 'it-dev-eus2-pep-db'
   location: location
 
   properties: {
@@ -10,11 +10,11 @@ resource itdeveus2lgdsapip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
     }
     privateLinkServiceConnections: [
       {
-        name: kv.name
+        name: dbs.name
         properties: {
-          privateLinkServiceId: kv.id
+          privateLinkServiceId: dbs.id
           groupIds: [
-            'blob'
+            'mysqlServer'
           ]
         }
       }
@@ -32,9 +32,9 @@ resource itdeveus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
     }
     privateLinkServiceConnections: [
       {
-        name: dbs.name
+        name: kv.name
         properties: {
-          privateLinkServiceId: dbs.id
+          privateLinkServiceId: kv.id
           groupIds: [
             'vault'
           ]
@@ -58,7 +58,7 @@ resource ithubeus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
         properties: {
           privateLinkServiceId: appService.id
           groupIds: [
-            'webApp'
+            'sites'
           ]
         }
       }
@@ -66,17 +66,17 @@ resource ithubeus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
   }
 }
 
-resource kv 'Microsoft.KeyVault/vaults@2022-02-01-preview' existing = {
-  name: 'it-dev-eus2-kv'
-  scope: resourceGroup('lg-dev-eus2-lgd-rg')
-}
-
 resource dbs 'Microsoft.Sql/servers@2022-05-01-preview' existing = {
   name: 'lg-dev-eus2-lgd-dbs'
   scope: resourceGroup('lg-dev-eus2-lgd-rg')
 }
 
-resource appService 'Microsoft.Sql/servers@2022-05-01-preview' existing = {
+resource kv 'Microsoft.KeyVault/vaults@2022-02-01-preview' existing = {
+  name: 'it-dev-eus2-kv'
+  scope: resourceGroup('lg-dev-eus2-lgd-rg')
+}
+
+resource appService 'Microsoft.Web/sites@2021-02-01' existing = {
   name: 'lg-dev-eus2-lgd-wa'
   scope: resourceGroup('lg-dev-eus2-lgd-rg')
 }

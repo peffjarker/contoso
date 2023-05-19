@@ -1,3 +1,5 @@
+param identityId string
+
 @description('The name of the Azure Key Vault')
 param akvName string = 'it-hub-eus2-kv'
 
@@ -104,7 +106,7 @@ resource createImportCerts 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: {
-      '${useExistingManagedIdentity ? existingDepScriptId.id : newDepScriptId.id}': {}
+      '${identityId}': {}
     }
   }
   kind: 'AzureCLI'
