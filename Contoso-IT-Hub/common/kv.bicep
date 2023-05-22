@@ -17,8 +17,16 @@ resource kv 'Microsoft.KeyVault/vaults@2022-02-01-preview' = {
         tenantId: tenantid
         permissions: {
           secrets: [
-            'get'
-            'list'
+            'all'
+          ]
+          certificates: [
+            'all'
+          ]
+          keys: [
+            'all'
+          ]
+          storage: [
+            'all'
           ]
         }
       }

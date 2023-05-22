@@ -1,4 +1,4 @@
-param location string
+param location string = resourceGroup().location
 
 resource itdeveus2lgdsapip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
   name: 'it-dev-eus2-pep-db'
@@ -14,7 +14,7 @@ resource itdeveus2lgdsapip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
         properties: {
           privateLinkServiceId: dbs.id
           groupIds: [
-            'mysqlServer'
+            'sqlServer'
           ]
         }
       }
@@ -72,8 +72,8 @@ resource dbs 'Microsoft.Sql/servers@2022-05-01-preview' existing = {
 }
 
 resource kv 'Microsoft.KeyVault/vaults@2022-02-01-preview' existing = {
-  name: 'it-dev-eus2-kv'
-  scope: resourceGroup('lg-dev-eus2-lgd-rg')
+  name: 'it-hub-eus2-kv'
+  scope: resourceGroup('it-hub-eus2-mgt-rg')
 }
 
 resource appService 'Microsoft.Web/sites@2021-02-01' existing = {

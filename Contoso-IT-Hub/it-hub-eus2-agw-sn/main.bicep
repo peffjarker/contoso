@@ -62,7 +62,7 @@ resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' =
     sku: {
       name: 'Standard_v2'
       tier: 'Standard_v2'
-      capacity: 2
+      capacity: 1
     }
     gatewayIPConfigurations: [
       {
@@ -109,10 +109,9 @@ resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' =
         name: 'appGatewayBackendHttpSettings'
         properties: {
           port: 80
-          hostName: '${siteName}.azurewebsites.net'
           protocol: 'Http'
           cookieBasedAffinity: 'Disabled'
-          pickHostNameFromBackendAddress: false
+          pickHostNameFromBackendAddress: true
           probeEnabled: true
           probe: {
             id: resourceId('Microsoft.Network/applicationGateways/probes/', applicationGatewayNameResource, 'Probe1')

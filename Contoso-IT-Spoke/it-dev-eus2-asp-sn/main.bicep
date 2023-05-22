@@ -1,4 +1,4 @@
-param location string
+param location string = resourceGroup().location
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
   name: 'lg-dev-eus2-lgd-asp'
