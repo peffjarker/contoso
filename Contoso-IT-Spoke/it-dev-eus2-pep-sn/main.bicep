@@ -1,7 +1,7 @@
 param location string = resourceGroup().location
 
-resource itdeveus2lgdsapip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
-  name: 'it-dev-eus2-pep-db'
+resource itdeveus2lgddbpep 'Microsoft.Network/privateEndpoints@2022-09-01' = {
+  name: 'it-dev-eus2-lgd-db-pep'
   location: location
 
   properties: {
@@ -22,8 +22,8 @@ resource itdeveus2lgdsapip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
   }
 }
 
-resource itdeveus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
-  name: 'it-dev-eus2-pep-kv'
+resource itdeveus2lgdkvpep 'Microsoft.Network/privateEndpoints@2022-09-01' = {
+  name: 'it-dev-eus2-kv-pep'
   location: location
 
   properties: {
@@ -42,10 +42,19 @@ resource itdeveus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
       }
     ]
   }
+  tags: {
+    groupName: 'lg'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
-resource ithubeus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
-  name: 'lg-dev-eus2-lgd-pep-wa'
+resource ithubeus2lgdwapep 'Microsoft.Network/privateEndpoints@2022-09-01' = {
+  name: 'lg-dev-eus2-lgd-wa-pep'
   location: location
 
   properties: {
@@ -60,6 +69,60 @@ resource ithubeus2lgdkvpip 'Microsoft.Network/privateEndpoints@2022-09-01' = {
           groupIds: [
             'sites'
           ]
+        }
+      }
+    ]
+  }
+  tags: {
+    groupName: 'lg'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
+}
+
+resource dnsZoneGroupWA 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-11-01' = {
+  name: 'dnsZoneGroupWA'
+  parent: ithubeus2lgdwapep
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink.azurewebsites.net'
+        properties: {
+          privateDnsZoneId: resourceId('it-hub-eus2-net-rg', 'Microsoft.Network/privateDnsZones', 'privatelink.azurewebsites.net')
+        }
+      }
+    ]
+  }
+}
+
+resource dnsZoneGroupDB 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-11-01' = {
+  name: 'dnsZoneGroupDB'
+  parent: itdeveus2lgddbpep
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink.database.windows.net'
+        properties: {
+          privateDnsZoneId: resourceId('it-hub-eus2-net-rg', 'Microsoft.Network/privateDnsZones', 'privatelink.database.windows.net')
+        }
+      }
+    ]
+  }
+}
+
+resource dnsZoneGroupKV 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-11-01' = {
+  name: 'dnsZoneGroupKV'
+  parent: itdeveus2lgdkvpep
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink.vaultcore.azure.net'
+        properties: {
+          privateDnsZoneId: resourceId('it-hub-eus2-net-rg', 'Microsoft.Network/privateDnsZones', 'privatelink.vaultcore.azure.net')
         }
       }
     ]

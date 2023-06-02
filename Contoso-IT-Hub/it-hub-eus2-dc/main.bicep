@@ -25,6 +25,15 @@ resource networkInterface_resource01 'Microsoft.Network/networkInterfaces@2022-0
     ]
   }
   dependsOn: []
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource hubeus2hmgt01 'Microsoft.Compute/virtualMachines@2022-03-01' = {
@@ -66,6 +75,15 @@ resource hubeus2hmgt01 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       adminPassword: 'passwordToDo123!'
     }
   }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource networkInterface_resource02 'Microsoft.Network/networkInterfaces@2022-09-01' = {
@@ -84,7 +102,15 @@ resource networkInterface_resource02 'Microsoft.Network/networkInterfaces@2022-0
       }
     ]
   }
-  dependsOn: []
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource hubeus2hmgt02 'Microsoft.Compute/virtualMachines@2022-03-01' = {
@@ -126,15 +152,20 @@ resource hubeus2hmgt02 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       adminPassword: 'passwordToDo123!'
     }
   }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource dcavailset 'Microsoft.Compute/availabilitySets@2022-11-01' = {
   name: 'it-hub-eus2-dc-avail'
   location: location
-  tags: {
-    tagName1: virtualMachineName01
-    tagName2: virtualMachineName02
-  }
   properties: {
     virtualMachines: [
       {
@@ -144,5 +175,14 @@ resource dcavailset 'Microsoft.Compute/availabilitySets@2022-11-01' = {
         id: hubeus2hmgt02.id
       }
     ]
+  }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
   }
 }

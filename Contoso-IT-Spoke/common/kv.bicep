@@ -32,4 +32,13 @@ resource kv 'Microsoft.KeyVault/vaults@2022-02-01-preview' = {
       }
     ]
   }
+  tags: {
+    groupName: 'lg'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }

@@ -22,6 +22,15 @@ resource networkInterface_resource 'Microsoft.Network/networkInterfaces@2022-09-
       }
     ]
   }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource hubeus2hmgt01 'Microsoft.Compute/virtualMachines@2022-03-01' = {
@@ -62,5 +71,14 @@ resource hubeus2hmgt01 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       adminUsername: adminUsername
       adminPassword: 'passwordToDo123!'
     }
+  }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
   }
 }

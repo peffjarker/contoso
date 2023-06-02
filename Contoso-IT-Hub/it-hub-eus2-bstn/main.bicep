@@ -1,4 +1,4 @@
-param location string
+param location string = 'eastus2'
 
 resource bastion_public_ip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
   name: 'it-hub-eus2-bstn-pip'
@@ -8,6 +8,15 @@ resource bastion_public_ip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
   }
   properties: {
     publicIPAllocationMethod: 'Static'
+  }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
   }
 }
 
@@ -24,11 +33,20 @@ resource bstn 'Microsoft.Network/bastionHosts@2022-07-01' = {
             id: bastion_public_ip.id
           }
           subnet: {
-            id: ithubvnet.properties.subnets[3].id
+            id: ithubvnet.properties.subnets[1].id
           }
         }
       }
     ]
+  }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
   }
 }
 

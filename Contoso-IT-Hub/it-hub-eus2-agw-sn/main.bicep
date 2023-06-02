@@ -39,6 +39,15 @@ resource publicIPAddressName 'Microsoft.Network/publicIPAddresses@2022-07-01' = 
   sku: {
     name: 'Standard'
   }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '2'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' = {
@@ -173,6 +182,15 @@ resource ApplicationGateway 'Microsoft.Network/applicationGateways@2022-07-01' =
   dependsOn: [
     HubVNet
   ]
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource AppService 'Microsoft.Web/sites@2022-03-01' existing = {

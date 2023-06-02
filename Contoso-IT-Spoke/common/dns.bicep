@@ -3,8 +3,8 @@ param devVirtualNetworkName string = 'it-dev-eus2-vnet'
 param devNetRG string = 'it-dev-eus2-net-rg'
 param hubNetRG string = 'it-hub-eus2-net-rg'
 
-resource vaultDNS 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.vaultcore.azure.net'
+resource appDNS 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.azurewebsites.net'
   location: 'global'
   tags: {
     groupName: 'it'
@@ -17,15 +17,15 @@ resource vaultDNS 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   }
 }
 
-resource vaultDNSLinkHub 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: 'vaultDNSLinkHub'
-  parent: vaultDNS
+resource appDNSLinkHub 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: appDNS
+  name: 'appDNSLinkHub'
   location: 'global'
   properties: {
     virtualNetwork: {
       id: resourceId(hubNetRG, 'Microsoft.Network/virtualNetworks', hubVirtualNetworkName)
     }
-    registrationEnabled: false
+    registrationEnabled: true
   }
   tags: {
     groupName: 'it'
@@ -38,15 +38,15 @@ resource vaultDNSLinkHub 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@
   }
 }
 
-resource vaultDNSLinkDev 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: 'vaultDNSLinkDev'
-  parent: vaultDNS
+resource appDNSLinkDev 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: appDNS
+  name: 'appDNSLinkDev'
   location: 'global'
   properties: {
     virtualNetwork: {
       id: resourceId(devNetRG, 'Microsoft.Network/virtualNetworks', devVirtualNetworkName)
     }
-    registrationEnabled: false
+    registrationEnabled: true
   }
   tags: {
     groupName: 'it'
@@ -59,8 +59,8 @@ resource vaultDNSLinkDev 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@
   }
 }
 
-resource saDNS 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.blob.core.windows.net'
+resource dbDNS 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.database.windows.net'
   location: 'global'
   tags: {
     groupName: 'it'
@@ -73,9 +73,9 @@ resource saDNS 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   }
 }
 
-resource saDNSLinkHub 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: 'saDNSLinkHub'
-  parent: saDNS
+resource dbDNSLinkHub 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  name: 'dbDNSLinkHub'
+  parent: dbDNS
   location: 'global'
   properties: {
     virtualNetwork: {
@@ -94,9 +94,9 @@ resource saDNSLinkHub 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@202
   }
 }
 
-resource saDNSLinkDev 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: 'saDNSLinkDev'
-  parent: saDNS
+resource dbDNSLinkDev 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  name: 'dbDNSLinkDev'
+  parent: dbDNS
   location: 'global'
   properties: {
     virtualNetwork: {

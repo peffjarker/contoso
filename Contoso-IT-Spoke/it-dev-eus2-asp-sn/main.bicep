@@ -7,6 +7,15 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
     name: 'B1'
     tier: 'Basic'
   }
+  tags: {
+    groupName: 'lg'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource webApp 'Microsoft.Web/sites@2021-02-01' = {
@@ -17,6 +26,15 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
   }
   properties: {
     serverFarmId: appServicePlan.id
+    virtualNetworkSubnetId: resourceId('it-dev-eus2-net-rg', 'Microsoft.Network/virtualNetworks/subnets', 'it-dev-eus2-vnet', 'it-dev-eus2-asp-sn')
   }
-
+  tags: {
+    groupName: 'lg'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }

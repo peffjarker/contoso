@@ -79,6 +79,15 @@ resource akv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
 resource newDepScriptId 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: managedIdentityName
   location: location
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 @description('An existing managed identity that could exist in another sub/rg')
@@ -136,6 +145,15 @@ resource createImportCerts 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
     ]
     scriptContent: loadTextContent('create-kv-cert.sh')
     cleanupPreference: cleanupPreference
+  }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '0'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
   }
 }]
 

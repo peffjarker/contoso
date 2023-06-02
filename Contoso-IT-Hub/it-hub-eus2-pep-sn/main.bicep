@@ -21,6 +21,15 @@ resource ithubeus2lgdsapep 'Microsoft.Network/privateEndpoints@2022-09-01' = {
       }
     ]
   }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }
 
 resource ithubeus2lgdkvpep 'Microsoft.Network/privateEndpoints@2022-09-01' = {
@@ -38,6 +47,45 @@ resource ithubeus2lgdkvpep 'Microsoft.Network/privateEndpoints@2022-09-01' = {
           groupIds: [
             'vault'
           ]
+        }
+      }
+    ]
+  }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '1'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
+}
+
+resource dnsZoneGroupKV 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-11-01' = {
+  name: 'dnsZoneGroupKV'
+  parent: ithubeus2lgdkvpep
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink.vaultcore.azure.net'
+        properties: {
+          privateDnsZoneId: resourceId('it-hub-eus2-net-rg', 'Microsoft.Network/privateDnsZones', 'privatelink.vaultcore.azure.net')
+        }
+      }
+    ]
+  }
+}
+
+resource dnsZoneGroupSA 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2022-11-01' = {
+  name: 'dnsZoneGroupSA'
+  parent: ithubeus2lgdsapep
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink.blob.core.windows.net'
+        properties: {
+          privateDnsZoneId: resourceId('it-hub-eus2-net-rg', 'Microsoft.Network/privateDnsZones', 'privatelink.blob.core.windows.net')
         }
       }
     ]

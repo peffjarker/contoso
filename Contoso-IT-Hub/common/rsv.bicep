@@ -10,4 +10,13 @@ resource rsv 'Microsoft.RecoveryServices/vaults@2023-02-01' = {
   properties: {
     publicNetworkAccess: 'Disabled'
   }
+  tags: {
+    groupName: 'it'
+    deployedBy: 'jeff.parker@neudesic.com'
+    serviceLevel: '0'
+    privacyLevel: '2'
+    internalOwner: 'Contoso'
+    supportContact: 'support@contoso.com'
+    changeControl: 'no'
+  }
 }

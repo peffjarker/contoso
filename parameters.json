@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "hubVirtualNetworkName": {
+      "value": "it-hub-eus2-vnet"
+    },
+    "subscriptionId": {
+      "value": "e775033b-0b00-4fdd-a47a-6925b2127557"
+    },
+    "saName": {
+      "value": "ithubeus2lgdsa"
+    },
+    "hubKVName": {
+      "value": "it-hub-eus2-kv"
+    },
+    "webAppsName": {
+      "value": "lg-dev-eus2-lgd-wa"
+    },
+    "agwSubnet": {
+      "value": "it-hub-eus2-agw-sn"
+    },
+    "dcNIC01": {
+      "value": "hubeus2dc01nic"
+    },
+    "dcNIC02": {
+      "value": "hubeus2dc02nic"
+    },
+    "dcSubnet": {
+      "value": "it-hub-eus2-dc-sn"
+    },
+    "dcVM01": {
+      "value": "hubeus2dc01"
+    },
+    "dcVM02": {
+      "value": "hubeus2dc02"
+    },
+    "hubVNet": {
+      "value": "it-hub-eus2-vnet"
+    },
+    "hubMgtNIC": {
+      "value": "hubeus2hmgt01nic"
+    },
+    "hubMgtSubnet": {
+      "value": "it-hub-eus2-mgt-sn"
+    },
+    "hubMgtVM": {
+      "value": "hubeus2hmgt01"
+    }
+  }
+}
